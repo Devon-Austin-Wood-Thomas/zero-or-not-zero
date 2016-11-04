@@ -16,7 +16,7 @@ while True:
 		if not x:
 			print("It's not hard, you just have to know how to do it.")
 			continue
-		if x.lower() == "zero" or x.lower() == "alex wang":
+		if x.lower() == "zero":
 			print("That one is ZERO.")
 			continue
 		try:
