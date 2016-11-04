@@ -17,7 +17,7 @@ while True:
 				print("That one is ZERO.")
 			else:
 				print("That one is NOTZERO.")
-		except NameError:
+		except (NameError, SyntaxError) :
 			print("That one is NOTZERO.")
 	except KeyboardInterrupt:
 		print("")
