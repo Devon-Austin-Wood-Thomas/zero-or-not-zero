@@ -16,9 +16,6 @@ section .data
 	notzero:	db	'That one is NOTZERO',0xA
 	notzeroLen:	equ $-notzero
 
-	; Zero
-	equal:	db	30h,0xA
-
 section .bss
 	num resb 8
 
@@ -39,16 +36,10 @@ section .text
 	mov	eax, 3		; Syscall: read i guess? i just learned assembly today
 	int	0x80		; Kernel interrupt 0x80
 
-	; If ecx == 0 setZero else setNotZero
+	; If ecx == 0 then setZero else setNotZero
 	cmp	byte[ecx], '0'	; Compare character value of user input to ascii char 0
 	je	setZero			; Jump to setZero if equal
 	jmp	setNotZero		; Jump to setNotZero
-
-	; Exit the program
-	exit:
-	mov	ebx, 0		; Arg 1: status
-	mov	eax, 1		; Syscall: 1 = exit(3)
-	int	0x80		; Kernel interrupt 0x80
 
 	; Set edx and ecx registers to print zero message
 	setZero:
@@ -68,3 +59,9 @@ section .text
 	mov	eax, 4		; Syscall: 4 = write(2)
 	int	0x80		; Kernel interrupt 0x80
 	call	exit	; Exit program
+
+	; Exit the program
+	exit:
+	mov	ebx, 0		; Arg 1: status
+	mov	eax, 1		; Syscall: 1 = exit(3)
+	int	0x80		; Kernel interrupt 0x80
